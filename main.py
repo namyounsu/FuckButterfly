@@ -1,16 +1,37 @@
-# This is a sample Python script.
+import ctypes
+import os
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import keyboard
+import pyautogui
+
+
+def check_admin_right():
+    try:
+        return os.getuid() == 0
+    except AttributeError:
+        return ctypes.windll.shell32.IsUserAnAdmin() != 0
+
+
+def pressure_key():
+    pyautogui.press('enter', interval=0.90)
+
+
+def fuck_keyboard_events():
+    print("----- Start FuckButterfly -----\n----- if press Enter, you doubled! -----")
+
+    if check_admin_right():
+        while True:
+            if keyboard.is_pressed('enter'):
+                pressure_key()
+    else:
+        print("----- Please Run Root -----")
 
 
 def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    #print_hi('PyCharm')
+    fuck_keyboard_events()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
